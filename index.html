@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thrushar Prem — Video Editor & Motion Designer</title>
+  <meta name="description" content="Thrushar Prem is a freelance video editor and motion designer crafting cinematic stories through post-production, color grading, and visual effects." />
+  <meta name="keywords" content="video editor, motion designer, freelance, cinematic, post-production, color grading, VFX" />
+  <meta name="author" content="Thrushar Prem" />
+  <meta property="og:title" content="Thrushar Prem — Video Editor & Motion Designer" />
+  <meta property="og:description" content="Cinematic storytelling through post-production." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#050505" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="locked-scroll">
+
+  <!-- ============================== -->
+  <!-- SVG FILTERS                    -->
+  <!-- ============================== -->
+  <svg class="svg-filters" aria-hidden="true" style="position:absolute;width:0;height:0;">
+    <defs>
+      <!-- Rough ink edge displacement -->
+      <filter id="rough-edges" x="-2%" y="-2%" width="104%" height="104%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="2" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <!-- Heavier rough for large panels -->
+      <filter id="rough-edges-heavy" x="-2%" y="-2%" width="104%" height="104%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="5" seed="7" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <!-- Texture overlay for typography -->
+      <filter id="text-grain" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" result="grain"/>
+        <feColorMatrix type="saturate" values="0" in="grain" result="grainBW"/>
+        <feBlend in="SourceGraphic" in2="grainBW" mode="multiply" result="textured"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ============================== -->
+  <!-- CUSTOM CURSOR                  -->
+  <!-- ============================== -->
+  <div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" class="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ============================== -->
+  <!-- FILM GRAIN OVERLAY             -->
+  <!-- ============================== -->
+  <canvas id="grain-canvas" class="grain-overlay" aria-hidden="true"></canvas>
+  <div class="vignette-overlay" aria-hidden="true"></div>
+
+  <!-- ============================== -->
+  <!-- LOADER / GAME MENU             -->
+  <!-- ============================== -->
+  <div id="loader" class="loader">
+    <!-- Game start menu -->
+    <div id="game-menu" class="game-menu">
+      <canvas id="smoke-canvas" class="smoke-canvas"></canvas>
+      <div class="menu-glow"></div>
+      
+      <div id="camera-cursor" class="camera-cursor">
+        <div class="camera-cursor-inner">
+          <div class="cam-bracket cam-tl"></div>
+          <div class="cam-bracket cam-tr"></div>
+          <div class="cam-bracket cam-bl"></div>
+          <div class="cam-bracket cam-br"></div>
+        </div>
+      </div>
+      
+      <div class="game-menu-content">
+        <svg class="play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <polygon points="6 3 20 12 6 21 6 3"></polygon>
+        </svg>
+        
+        <h1 class="game-title">SEQUENCE_01</h1>
+        <p class="game-subtitle">Experience with Sound</p>
+        
+        <button id="start-btn" class="game-start-btn" data-magnetic>▶ PLAY</button>
+      </div>
+    </div>
+
+    <!-- Initialization timeline (fades in after play) -->
+    <div id="loader-timeline" class="loader-timeline" style="display:none; opacity:0; transition: opacity 1.5s ease;">
+      
+      <div class="loader-timeline-header">
+        <span id="loader-status" class="loader-status">Initializing Project...</span>
+        <span id="loader-tc" class="loader-tc">00:00:00:00</span>
+      </div>
+
+      <div class="loader-timeline-body">
+        <div id="loader-playhead" class="loader-playhead">
+          <div class="loader-playhead-top"></div>
+          <div class="loader-playhead-line"></div>
+        </div>
+
+        <div class="loader-tracks">
+          <!-- Video Track (V2 - GFX) -->
+          <div class="loader-track video-track">
+            <div class="loader-clip v-clip v-gfx1"></div>
+            <div class="loader-clip v-clip v-gfx2"></div>
+            <div class="loader-clip v-clip v-gfx3"></div>
+          </div>
+
+          <!-- Video Track (V1 - Main) -->
+          <div class="loader-track video-track">
+            <!-- This is the first clip that expands -->
+            <div id="loader-first-clip" class="loader-clip v-clip v1">
+              <div class="clip-inner-video"></div>
+            </div>
+            <div class="loader-clip v-clip v2"></div>
+            <div class="loader-clip v-clip v3"></div>
+            <div class="loader-clip v-clip v4"></div>
+          </div>
+
+          <!-- Audio Track (A1) -->
+          <div class="loader-track audio-track">
+            <div class="loader-clip a-clip a1"><div class="waveform"></div></div>
+            <div class="loader-clip a-clip a2"><div class="waveform"></div></div>
+            <div class="loader-clip a-clip a3"><div class="waveform"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- EDITING TIMELINE               -->
+  <!-- ============================== -->
+  <div id="timeline" class="timeline" aria-label="Page progress timeline">
+    <div class="timeline-inner">
+      <!-- Timecode -->
+      <div id="timecode" class="timeline-timecode">00:00:00:00</div>
+
+      <!-- Track -->
+      <div class="timeline-track" id="timeline-track">
+        <div class="timeline-clip" data-section="hero">INTRO</div>
+        <div class="timeline-clip" data-section="showreel">SHOWREEL</div>
+        <div class="timeline-clip" data-section="projects">PROJECTS</div>
+        <div class="timeline-clip" data-section="services">SERVICES</div>
+        <div class="timeline-clip" data-section="about">ABOUT</div>
+        <div class="timeline-clip" data-section="contact">CONTACT</div>
+
+        <!-- Playhead -->
+        <div id="playhead" class="timeline-playhead">
+          <div class="playhead-head"></div>
+          <div class="playhead-line"></div>
+        </div>
+      </div>
+
+      <!-- Duration -->
+      <div id="duration" class="timeline-duration">03:24:00:00</div>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- NAVIGATION                     -->
+  <!-- ============================== -->
+  <nav id="navbar" class="navbar">
+    <a href="#hero" class="nav-brand magnetic-btn" data-magnetic>THRUSHAR</a>
+    <div class="nav-links">
+      <a href="#projects" class="nav-link magnetic-btn" data-magnetic>WORK</a>
+      <a href="#about" class="nav-link magnetic-btn" data-magnetic>ABOUT</a>
+      <a href="#contact" class="nav-link magnetic-btn" data-magnetic>CONTACT</a>
+      <button id="sound-toggle" class="sound-toggle magnetic-btn" data-magnetic aria-label="Toggle sound" title="Toggle sound">
+        <svg class="sound-icon sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+          <line x1="23" y1="9" x2="17" y2="15"/>
+          <line x1="17" y1="9" x2="23" y2="15"/>
+        </svg>
+        <svg class="sound-icon sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:none;">
+          <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================== -->
+  <!-- HERO                           -->
+  <!-- ============================== -->
+  <section id="hero" class="hero" data-scroll-section>
+    <!-- Background Video (replace src with your video) -->
+    <div class="hero-video-wrap">
+      <video class="hero-video" autoplay muted loop playsinline poster="">
+        <!-- <source src="assets/hero-bg.mp4" type="video/mp4" /> -->
+      </video>
+      <div class="hero-video-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-title-wrap reveal-wrap">
+        <h1 class="hero-title textured-heading">
+          <span class="title-line reveal-text" data-reveal>THRUSHAR</span>
+          <span class="title-line reveal-text" data-reveal>PREM</span>
+        </h1>
+      </div>
+
+      <div class="hero-subtitle reveal-wrap">
+        <span class="subtitle-line reveal-text" data-reveal>VIDEO EDITOR</span>
+        <span class="subtitle-divider reveal-text" data-reveal>/</span>
+        <span class="subtitle-line reveal-text" data-reveal>MOTION DESIGNER</span>
+        <span class="subtitle-divider reveal-text" data-reveal>/</span>
+        <span class="subtitle-line reveal-text" data-reveal>STORYTELLER</span>
+      </div>
+
+      <div class="hero-cta reveal-wrap">
+        <a href="#projects" class="btn btn-primary magnetic-btn" data-magnetic data-reveal>
+          <span class="btn-text">VIEW WORK</span>
+          <span class="btn-ripple"></span>
+        </a>
+        <a href="#contact" class="btn btn-secondary magnetic-btn" data-magnetic data-reveal>
+          <span class="btn-text">CONTACT</span>
+          <span class="btn-ripple"></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-scroll-indicator reveal-text" data-reveal>
+      <span class="scroll-label">SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- SHOWREEL                       -->
+  <!-- ============================== -->
+  <section id="showreel" class="section showreel" data-scroll-section>
+    <div class="section-header">
+      <span class="section-label reveal-text" data-reveal>01 //</span>
+      <h2 class="section-title textured-heading reveal-text" data-reveal>SHOWREEL</h2>
+    </div>
+
+    <div class="showreel-cinema reveal-up" data-reveal>
+      <div class="cinema-frame" id="showreel-frame">
+        <div class="cinema-placeholder">
+          <svg class="play-icon" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="39" stroke="#8B0000" stroke-width="2"/>
+            <polygon points="32,24 58,40 32,56" fill="#F5F5F5"/>
+          </svg>
+          <p class="cinema-label">PLAY SHOWREEL</p>
+        </div>
+        <!-- Replace with your showreel video -->
+        <!-- <video src="assets/showreel.mp4" poster="assets/showreel-poster.jpg"></video> -->
+      </div>
+      <div class="cinema-shadow"></div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- PROJECTS — NOIR GRAPHIC NOVEL  -->
+  <!-- ============================== -->
+  <section id="projects" class="section projects" data-scroll-section>
+    <div class="section-header">
+      <span class="section-label reveal-text" data-reveal>02 //</span>
+      <h2 class="section-title textured-heading reveal-text" data-reveal>SELECTED WORK</h2>
+    </div>
+
+    <!-- Paper texture background for comic pages -->
+    <div class="comic-page">
+      <div class="comic-page-texture" aria-hidden="true"></div>
+
+      <div class="comic-grid">
+
+        <!-- Panel 1 — Wide cinematic (spans 2 columns) -->
+        <article class="comic-panel panel-wide reveal-up" data-reveal data-project="1">
+          <div class="panel-frame">
+            <div class="panel-media">
+              <div class="panel-thumbnail" style="background: linear-gradient(135deg, #1a0a0a 0%, #0d0408 40%, #0a0a1a 100%);"></div>
+              <!-- <video class="panel-video" src="assets/project1-preview.mp4" muted loop playsinline preload="none"></video> -->
+              <div class="panel-vignette"></div>
+            </div>
+            <div class="panel-info">
+              <h3 class="panel-title textured-heading">MIDNIGHT CHASE</h3>
+              <div class="panel-meta">
+                <span class="panel-category">SHORT FILM</span>
+                <span class="panel-duration">04:32</span>
+              </div>
+            </div>
+            <div class="panel-play-indicator">
+              <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
+            </div>
+          </div>
+        </article>
+
+        <!-- Panel 2 — Tall vertical (spans 2 rows) -->
+        <article class="comic-panel panel-tall reveal-up" data-reveal data-project="2">
+          <div class="panel-frame">
+            <div class="panel-media">
+              <div class="panel-thumbnail" style="background: linear-gradient(180deg, #0a0a0f 0%, #1a0505 50%, #080412 100%);"></div>
+              <div class="panel-vignette"></div>
+            </div>
+            <div class="panel-info">
+              <h3 class="panel-title textured-heading">URBAN DECAY</h3>
+              <div class="panel-meta">
+                <span class="panel-category">MUSIC VIDEO</span>
+                <span class="panel-duration">03:18</span>
+              </div>
+            </div>
+            <div class="panel-play-indicator">
+              <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
+            </div>
+          </div>
+        </article>
+
+        <!-- Panel 3 — Small square -->
+        <article class="comic-panel panel-small reveal-up" data-reveal data-project="3">
+          <div class="panel-frame">
+            <div class="panel-media">
+              <div class="panel-thumbnail" style="background: linear-gradient(135deg, #0f0505 0%, #050510 100%);"></div>
+              <div class="panel-vignette"></div>
+            </div>
+            <div class="panel-info">
+              <h3 class="panel-title textured-heading">NEON NIGHTS</h3>
+              <div class="panel-meta">
+                <span class="panel-category">COMMERCIAL</span>
+                <span class="panel-duration">00:45</span>
+              </div>
+            </div>
+            <div class="panel-play-indicator">
+              <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
+            </div>
+          </div>
+        </article>
+
+        <!-- Panel 4 — Full width cinematic (spans all columns, short) -->
+        <article class="comic-panel panel-cinematic reveal-up" data-reveal data-project="4">
+          <div class="panel-frame">
+            <div class="panel-media">
+              <div class="panel-thumbnail" style="background: linear-gradient(90deg, #0a0505 0%, #0f080a 30%, #0a0a15 70%, #060610 100%);"></div>
+              <div class="panel-vignette"></div>
+            </div>
+            <div class="panel-info">
+              <h3 class="panel-title textured-heading">FRAGMENTS</h3>
+              <div class="panel-meta">
+                <span class="panel-category">DOCUMENTARY</span>
+                <span class="panel-duration">12:07</span>
+              </div>
+            </div>
+            <div class="panel-play-indicator">
+              <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
+            </div>
+          </div>
+        </article>
+
+        <!-- Panel 5 — Medium, slightly taller -->
+        <article class="comic-panel panel-medium-tall reveal-up" data-reveal data-project="5">
+          <div class="panel-frame">
+            <div class="panel-media">
+              <div class="panel-thumbnail" style="background: linear-gradient(160deg, #100808 0%, #08080f 100%);"></div>
+              <div class="panel-vignette"></div>
+            </div>
+            <div class="panel-info">
+              <h3 class="panel-title textured-heading">ECLIPSE</h3>
+              <div class="panel-meta">
+                <span class="panel-category">MOTION GRAPHICS</span>
+                <span class="panel-duration">01:20</span>
+              </div>
+            </div>
+            <div class="panel-play-indicator">
+              <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
+            </div>
+          </div>
+        </article>
+
+        <!-- Panel 6 — Medium landscape -->
+        <article class="comic-panel panel-medium reveal-up" data-reveal data-project="6">
+          <div class="panel-frame">
+            <div class="panel-media">
+              <div class="panel-thumbnail" style="background: linear-gradient(135deg, #0d0505 0%, #05050d 100%);"></div>
+              <div class="panel-vignette"></div>
+            </div>
+            <div class="panel-info">
+              <h3 class="panel-title textured-heading">VELOCITY</h3>
+              <div class="panel-meta">
+                <span class="panel-category">GAMING MONTAGE</span>
+                <span class="panel-duration">02:55</span>
+              </div>
+            </div>
+            <div class="panel-play-indicator">
+              <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- SERVICES                       -->
+  <!-- ============================== -->
+  <section id="services" class="section services" data-scroll-section>
+    <div class="section-header">
+      <span class="section-label reveal-text" data-reveal>03 //</span>
+      <h2 class="section-title textured-heading reveal-text" data-reveal>SERVICES</h2>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card reveal-up" data-reveal>
+        <span class="service-number">01</span>
+        <h3 class="service-title">SHORT FORM</h3>
+        <p class="service-desc">Reels, TikToks, YouTube Shorts — punchy edits that stop the scroll.</p>
+        <div class="service-line"></div>
+      </div>
+
+      <div class="service-card reveal-up" data-reveal>
+        <span class="service-number">02</span>
+        <h3 class="service-title">LONG FORM</h3>
+        <p class="service-desc">Documentaries, podcasts, vlogs — structured storytelling with rhythm.</p>
+        <div class="service-line"></div>
+      </div>
+
+      <div class="service-card reveal-up" data-reveal>
+        <span class="service-number">03</span>
+        <h3 class="service-title">MOTION GRAPHICS</h3>
+        <p class="service-desc">Title sequences, infographics, animated logos — design that moves.</p>
+        <div class="service-line"></div>
+      </div>
+
+      <div class="service-card reveal-up" data-reveal>
+        <span class="service-number">04</span>
+        <h3 class="service-title">COMMERCIAL</h3>
+        <p class="service-desc">Brand films, product launches, ad campaigns — cinematic selling.</p>
+        <div class="service-line"></div>
+      </div>
+
+      <div class="service-card reveal-up" data-reveal>
+        <span class="service-number">05</span>
+        <h3 class="service-title">GAMING</h3>
+        <p class="service-desc">Montages, intros, highlight reels — high-energy precision editing.</p>
+        <div class="service-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- ABOUT                          -->
+  <!-- ============================== -->
+  <section id="about" class="section about" data-scroll-section>
+    <div class="section-header">
+      <span class="section-label reveal-text" data-reveal>04 //</span>
+      <h2 class="section-title textured-heading reveal-text" data-reveal>ABOUT</h2>
+    </div>
+
+    <div class="about-content">
+      <div class="about-text reveal-up" data-reveal>
+        <p>I'm Thrushar Prem — a freelance video editor and motion designer based in India. I craft cinematic stories through meticulous post-production, color grading, and visual effects.</p>
+        <p>Every frame is intentional. Every cut has purpose. I treat each project like a film — because to me, it is one.</p>
+        <p>When I'm not editing, I'm studying cinematography, deconstructing title sequences, or obsessing over a single transition.</p>
+      </div>
+
+      <div class="about-software reveal-up" data-reveal>
+        <h3 class="about-tools-label">TOOLS OF THE TRADE</h3>
+        <div class="software-grid">
+          <div class="software-item">
+            <div class="software-icon">
+              <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#00005B"/><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" fill="#9999FF" font-size="12" font-weight="700" font-family="Inter">Pr</text></svg>
+            </div>
+            <span>Premiere Pro</span>
+          </div>
+          <div class="software-item">
+            <div class="software-icon">
+              <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#00005B"/><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" fill="#9999FF" font-size="12" font-weight="700" font-family="Inter">Ae</text></svg>
+            </div>
+            <span>After Effects</span>
+          </div>
+          <div class="software-item">
+            <div class="software-icon">
+              <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#ff4444"/><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" fill="#fff" font-size="10" font-weight="700" font-family="Inter">DaV</text></svg>
+            </div>
+            <span>DaVinci Resolve</span>
+          </div>
+          <div class="software-item">
+            <div class="software-icon">
+              <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#001E36"/><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" fill="#31A8FF" font-size="12" font-weight="700" font-family="Inter">Ps</text></svg>
+            </div>
+            <span>Photoshop</span>
+          </div>
+          <div class="software-item">
+            <div class="software-icon">
+              <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#330000"/><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" fill="#FF9A00" font-size="12" font-weight="700" font-family="Inter">Ai</text></svg>
+            </div>
+            <span>Illustrator</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- CONTACT                        -->
+  <!-- ============================== -->
+  <section id="contact" class="section contact" data-scroll-section>
+    <div class="contact-inner">
+      <div class="section-header">
+        <span class="section-label reveal-text" data-reveal>05 //</span>
+        <h2 class="section-title contact-title textured-heading reveal-text" data-reveal>LET'S CREATE<br>SOMETHING<br>CINEMATIC</h2>
+      </div>
+
+      <div class="contact-links reveal-up" data-reveal>
+        <a href="mailto:thrushar@example.com" class="contact-link magnetic-btn" data-magnetic>
+          <span class="contact-link-label">EMAIL</span>
+          <span class="contact-link-value">thrushar@example.com</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://instagram.com/" target="_blank" rel="noopener" class="contact-link magnetic-btn" data-magnetic>
+          <span class="contact-link-label">INSTAGRAM</span>
+          <span class="contact-link-value">@thrusharprem</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://linkedin.com/" target="_blank" rel="noopener" class="contact-link magnetic-btn" data-magnetic>
+          <span class="contact-link-label">LINKEDIN</span>
+          <span class="contact-link-value">Thrushar Prem</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://wa.me/" target="_blank" rel="noopener" class="contact-link magnetic-btn" data-magnetic>
+          <span class="contact-link-label">WHATSAPP</span>
+          <span class="contact-link-value">Send a message</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+      </div>
+
+      <a href="mailto:thrushar@example.com" class="cta-btn magnetic-btn reveal-up" data-magnetic data-reveal>
+        <span class="cta-text">LET'S CREATE SOMETHING CINEMATIC</span>
+        <span class="btn-ripple"></span>
+      </a>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-text">© 2026 THRUSHAR PREM. ALL RIGHTS RESERVED.</span>
+      <span class="footer-text">CRAFTED WITH OBSESSION.</span>
+    </footer>
+  </section>
+
+  <!-- ============================== -->
+  <!-- PROJECT MODAL                  -->
+  <!-- ============================== -->
+  <div id="project-modal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <button id="modal-close" class="modal-close magnetic-btn" data-magnetic aria-label="Close modal">✕</button>
+      <div class="modal-video">
+        <!-- Video embed goes here -->
+        <div class="modal-video-placeholder">
+          <svg class="play-icon" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="39" stroke="#8B0000" stroke-width="2"/>
+            <polygon points="32,24 58,40 32,56" fill="#F5F5F5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="modal-info">
+        <h3 id="modal-title" class="modal-project-title"></h3>
+        <p id="modal-description" class="modal-project-desc"></p>
+        <div class="modal-details">
+          <div class="modal-detail">
+            <span class="detail-label">CATEGORY</span>
+            <span id="modal-category" class="detail-value"></span>
+          </div>
+          <div class="modal-detail">
+            <span class="detail-label">DURATION</span>
+            <span id="modal-duration" class="detail-value"></span>
+          </div>
+          <div class="modal-detail">
+            <span class="detail-label">YEAR</span>
+            <span id="modal-year" class="detail-value"></span>
+          </div>
+          <div class="modal-detail">
+            <span class="detail-label">SOFTWARE</span>
+            <span id="modal-software" class="detail-value"></span>
+          </div>
+          <div class="modal-detail">
+            <span class="detail-label">TECHNIQUES</span>
+            <span id="modal-techniques" class="detail-value"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
