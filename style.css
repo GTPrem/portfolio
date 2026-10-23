@@ -3486,3 +3486,107 @@ body.locked-scroll .cursor-ring {
     transition: opacity 0.2s !important;
   }
 }
+
+
+/* ============================================================
+   EMBED SIZE FIX — keep third-party players inside their cards
+   ============================================================ */
+
+/* Keep every project card and its media clipped to the card bounds. */
+.project-frame,
+.project-frame .frame-inner,
+.project-frame .frame-media,
+.reel-embed-wrap,
+.vimeo-embed-wrap,
+.exp-card,
+.exp-video-wrap,
+.exp-iframe-container {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Instagram reels: consistent portrait cards rather than oversized embeds. */
+.showcase-featured {
+  align-items: start;
+}
+
+.project-frame.frame-featured.frame-portrait {
+  width: min(100%, 360px);
+  height: auto;
+  aspect-ratio: 9 / 16;
+  max-height: min(72vh, 640px);
+  justify-self: center;
+  overflow: hidden;
+}
+
+.project-frame.frame-secondary.frame-portrait {
+  width: min(100%, 280px);
+  height: auto;
+  aspect-ratio: 9 / 16;
+  max-height: min(62vh, 500px);
+  justify-self: center;
+  overflow: hidden;
+}
+
+.frame-media.reel-media,
+.reel-embed-wrap {
+  min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.reel-embed-wrap iframe,
+.vimeo-embed-wrap iframe,
+.exp-iframe-container iframe {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  border: 0;
+}
+
+/* Keep experimental Vimeo players at a predictable widescreen size. */
+.exp-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+}
+
+.exp-video-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: none;
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .exp-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .project-frame.frame-featured.frame-portrait {
+    width: min(100%, 320px);
+    max-height: none;
+  }
+
+  .project-frame.frame-secondary.frame-portrait {
+    width: min(100%, 320px);
+    max-height: none;
+  }
+
+  .exp-grid {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: 480px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-frame.frame-featured.frame-portrait,
+  .project-frame.frame-secondary.frame-portrait {
+    width: min(100%, 280px);
+  }
+}
