@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thrushar Prem — Video Editor & Motion Designer</title>
-  <meta name="description" content="Thrushar Prem is a freelance video editor and motion designer crafting cinematic stories through post-production, color grading, and visual effects." />
-  <meta name="keywords" content="video editor, motion designer, freelance, cinematic, post-production, color grading, VFX" />
-  <meta name="author" content="Thrushar Prem" />
-  <meta property="og:title" content="Thrushar Prem — Video Editor & Motion Designer" />
+  <title>Sequence Co. — Video Editor & Motion Designer</title>
+  <meta name="description" content="Sequence Co. crafts cinematic stories through post-production, editing, color grading, and visual effects." />
+  <meta name="keywords" content="Sequence Co, video editor, motion designer, freelance, cinematic, post-production, color grading, VFX" />
+  <meta name="author" content="Sequence Co." />
+  <meta property="og:title" content="Sequence Co. — Video Editor & Motion Designer" />
   <meta property="og:description" content="Cinematic storytelling through post-production." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#050505" />
@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=7" />
 </head>
 <body class="locked-scroll">
 
@@ -142,8 +142,8 @@
       <!-- Track -->
       <div class="timeline-track" id="timeline-track">
         <div class="timeline-clip" data-section="hero">INTRO</div>
-        <div class="timeline-clip" data-section="showreel">SHOWREEL</div>
-        <div class="timeline-clip" data-section="projects">PROJECTS</div>
+        <div class="timeline-clip" data-section="projects">WORK</div>
+        <div class="timeline-clip" data-section="experimental">EXPERIMENTAL</div>
         <div class="timeline-clip" data-section="services">SERVICES</div>
         <div class="timeline-clip" data-section="about">ABOUT</div>
         <div class="timeline-clip" data-section="contact">CONTACT</div>
@@ -164,9 +164,10 @@
   <!-- NAVIGATION                     -->
   <!-- ============================== -->
   <nav id="navbar" class="navbar">
-    <a href="#hero" class="nav-brand magnetic-btn" data-magnetic>THRUSHAR</a>
+    <a href="#hero" class="nav-brand magnetic-btn" data-magnetic>SEQUENCE CO.</a>
     <div class="nav-links">
       <a href="#projects" class="nav-link magnetic-btn" data-magnetic>WORK</a>
+      <a href="#experimental" class="nav-link magnetic-btn" data-magnetic>EXPERIMENTAL</a>
       <a href="#about" class="nav-link magnetic-btn" data-magnetic>ABOUT</a>
       <a href="#contact" class="nav-link magnetic-btn" data-magnetic>CONTACT</a>
       <button id="sound-toggle" class="sound-toggle magnetic-btn" data-magnetic aria-label="Toggle sound" title="Toggle sound">
@@ -189,7 +190,7 @@
   <!-- ============================== -->
   <section id="hero" class="hero" data-scroll-section>
     <!-- Background Video (replace src with your video) -->
-    <div class="hero-video-wrap">
+    <div class="hero-video-wrap" data-scroll-speed="0.1" data-hero-bg>
       <video class="hero-video" autoplay muted loop playsinline poster="">
         <!-- <source src="assets/hero-bg.mp4" type="video/mp4" /> -->
       </video>
@@ -199,199 +200,470 @@
     <div class="hero-content">
       <div class="hero-title-wrap reveal-wrap">
         <h1 class="hero-title textured-heading">
-          <span class="title-line reveal-text" data-reveal>THRUSHAR</span>
-          <span class="title-line reveal-text" data-reveal>PREM</span>
+          <span class="mask-line"><span class="title-line reveal-text" data-reveal data-hero-line="1">SEQUENCE</span></span>
+          <span class="mask-line"><span class="title-line reveal-text" data-reveal data-hero-line="2">CO.</span></span>
         </h1>
       </div>
 
       <div class="hero-subtitle reveal-wrap">
-        <span class="subtitle-line reveal-text" data-reveal>VIDEO EDITOR</span>
-        <span class="subtitle-divider reveal-text" data-reveal>/</span>
-        <span class="subtitle-line reveal-text" data-reveal>MOTION DESIGNER</span>
-        <span class="subtitle-divider reveal-text" data-reveal>/</span>
-        <span class="subtitle-line reveal-text" data-reveal>STORYTELLER</span>
+        <span class="subtitle-line reveal-text" data-reveal data-hero-sub="1">VIDEO EDITOR</span>
+        <span class="subtitle-divider reveal-text" data-reveal data-hero-sub="2">/</span>
+        <span class="subtitle-line reveal-text" data-reveal data-hero-sub="3">MOTION DESIGNER</span>
+        <span class="subtitle-divider reveal-text" data-reveal data-hero-sub="4">/</span>
+        <span class="subtitle-line reveal-text" data-reveal data-hero-sub="5">STORYTELLER</span>
       </div>
 
       <div class="hero-cta reveal-wrap">
-        <a href="#projects" class="btn btn-primary magnetic-btn" data-magnetic data-reveal>
-          <span class="btn-text">VIEW WORK</span>
+        <a href="#projects" class="btn btn-primary magnetic-btn" id="hero-work-btn" data-magnetic data-reveal data-hero-cta="1">
+          <span class="btn-text">WORK</span>
           <span class="btn-ripple"></span>
         </a>
-        <a href="#contact" class="btn btn-secondary magnetic-btn" data-magnetic data-reveal>
+        <a href="#contact" class="btn btn-secondary magnetic-btn" data-magnetic data-reveal data-hero-cta="2">
           <span class="btn-text">CONTACT</span>
           <span class="btn-ripple"></span>
         </a>
       </div>
     </div>
 
-    <div class="hero-scroll-indicator reveal-text" data-reveal>
+    <div class="hero-scroll-indicator reveal-text" data-reveal data-hero-scroll>
       <span class="scroll-label">SCROLL</span>
       <div class="scroll-line"></div>
     </div>
   </section>
 
+  <!-- Showreel section removed — replaced by project portfolio below -->
+
   <!-- ============================== -->
-  <!-- SHOWREEL                       -->
+  <!-- PROJECTS — SELECTED WORK      -->
   <!-- ============================== -->
-  <section id="showreel" class="section showreel" data-scroll-section>
+  <section id="projects" class="section projects" data-scroll-section>
     <div class="section-header">
       <span class="section-label reveal-text" data-reveal>01 //</span>
-      <h2 class="section-title textured-heading reveal-text" data-reveal>SHOWREEL</h2>
+      <span class="mask-line"><h2 class="section-title textured-heading reveal-text" data-reveal data-anim-heading="mask">SELECTED WORK</h2></span>
     </div>
 
-    <div class="showreel-cinema reveal-up" data-reveal>
-      <div class="cinema-frame" id="showreel-frame">
-        <div class="cinema-placeholder">
-          <svg class="play-icon" viewBox="0 0 80 80" fill="none">
-            <circle cx="40" cy="40" r="39" stroke="#8B0000" stroke-width="2"/>
-            <polygon points="32,24 58,40 32,56" fill="#F5F5F5"/>
-          </svg>
-          <p class="cinema-label">PLAY SHOWREEL</p>
+    <!-- Horizontal scroll background text -->
+    <div class="section-bg-text" aria-hidden="true">WORK</div>
+
+    <div class="project-showcase" id="project-showcase">
+      <div class="showcase-stage" id="showcase-stage">
+        <!-- Background Ambient Glow & Subtle Texture -->
+        <div class="showcase-stage-bg" aria-hidden="true"></div>
+
+        <!-- ============================================ -->
+        <!-- ROW 1 — FEATURED PROJECTS (3 large cards)   -->
+        <!-- ============================================ -->
+        <div class="showcase-header-overlay">
+          <span class="showcase-label">FEATURED</span>
+          <span class="showcase-sub">COLLEGE INSTAGRAM — SHORT FORM CONTENT</span>
         </div>
-        <!-- Replace with your showreel video -->
-        <!-- <video src="assets/showreel.mp4" poster="assets/showreel-poster.jpg"></video> -->
+
+        <div class="showcase-frames showcase-featured" id="showcase-frames">
+
+          <!-- FEATURED 01 — College Instagram Reel 1 -->
+          <article class="project-frame frame-portrait frame-featured" data-project="5" data-index="0"
+                   data-reel-url="https://www.instagram.com/reel/DYjFo1GvkVT/">
+            <div class="frame-inner">
+              <div class="frame-header">
+                <span class="frame-num">★ FEATURED</span>
+                <span class="frame-cat">EDUCATIONAL</span>
+              </div>
+              <div class="frame-media reel-media">
+                <div class="frame-thumbnail reel-thumb" style="background: linear-gradient(160deg, #0a0808 0%, #180000 100%);"></div>
+                <div class="reel-embed-wrap" data-reel-src="https://www.instagram.com/reel/DYjFo1GvkVT/embed/"></div>
+                <div class="frame-vignette"></div>
+                <div class="frame-grain"></div>
+              </div>
+              <div class="frame-footer">
+                <div class="frame-title-wrap">
+                  <h3 class="frame-title textured-heading">COLLEGE REEL 1</h3>
+                  <span class="frame-subtitle">Social Video · Educational Content</span>
+                </div>
+                <div class="frame-meta">
+                  <a class="frame-action frame-ig-link" href="https://www.instagram.com/reel/DYjFo1GvkVT/" target="_blank" rel="noopener noreferrer" aria-label="Watch on Instagram">
+                    WATCH ON INSTAGRAM
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+              <div class="frame-play-indicator reel-play-indicator">
+                <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
+              </div>
+            </div>
+          </article>
+
+          <!-- FEATURED 02 — College Instagram Reel 2 -->
+          <article class="project-frame frame-portrait frame-featured" data-project="1" data-index="1"
+                   data-reel-url="https://www.instagram.com/reel/Dd8HchXPFlU/">
+            <div class="frame-inner">
+              <div class="frame-header">
+                <span class="frame-num">★ FEATURED</span>
+                <span class="frame-cat">SOCIAL VIDEO</span>
+              </div>
+              <div class="frame-media reel-media">
+                <div class="frame-thumbnail reel-thumb" style="background: linear-gradient(160deg, #0d0508 0%, #0a0012 100%);"></div>
+                <div class="reel-embed-wrap" data-reel-src="https://www.instagram.com/reel/Dd8HchXPFlU/embed/"></div>
+                <div class="frame-vignette"></div>
+                <div class="frame-grain"></div>
+              </div>
+              <div class="frame-footer">
+                <div class="frame-title-wrap">
+                  <h3 class="frame-title textured-heading">COLLEGE REEL 2</h3>
+                  <span class="frame-subtitle">Social Video · Educational Content</span>
+                </div>
+                <div class="frame-meta">
+                  <a class="frame-action frame-ig-link" href="https://www.instagram.com/reel/Dd8HchXPFlU/" target="_blank" rel="noopener noreferrer" aria-label="Watch on Instagram">
+                    WATCH ON INSTAGRAM
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+              <div class="frame-play-indicator reel-play-indicator">
+                <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
+              </div>
+            </div>
+          </article>
+
+          <!-- FEATURED 03 — College Instagram Reel 3 -->
+          <article class="project-frame frame-portrait frame-featured" data-project="7" data-index="2"
+                   data-reel-url="https://www.instagram.com/reel/DW3ocz5jxT-/">
+            <div class="frame-inner">
+              <div class="frame-header">
+                <span class="frame-num">★ FEATURED</span>
+                <span class="frame-cat">SOCIAL VIDEO</span>
+              </div>
+              <div class="frame-media reel-media">
+                <div class="frame-thumbnail reel-thumb" style="background: linear-gradient(160deg, #0a0505 0%, #1a0a00 100%);"></div>
+                <div class="reel-embed-wrap" data-reel-src="https://www.instagram.com/reel/DW3ocz5jxT-/embed/"></div>
+                <div class="frame-vignette"></div>
+                <div class="frame-grain"></div>
+              </div>
+              <div class="frame-footer">
+                <div class="frame-title-wrap">
+                  <h3 class="frame-title textured-heading">COLLEGE REEL 3</h3>
+                  <span class="frame-subtitle">Social Video · Educational Content</span>
+                </div>
+                <div class="frame-meta">
+                  <a class="frame-action frame-ig-link" href="https://www.instagram.com/reel/DW3ocz5jxT-/" target="_blank" rel="noopener noreferrer" aria-label="Watch on Instagram">
+                    WATCH ON INSTAGRAM
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+              <div class="frame-play-indicator reel-play-indicator">
+                <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- ============================================ -->
+        <!-- ROW 2 — SOCIAL & ARCHIVE REELS (4 cards)   -->
+        <!-- ============================================ -->
+        <div class="showcase-header-overlay showcase-header-secondary">
+          <span class="showcase-label">ARCHIVE & SOCIAL</span>
+          <span class="showcase-sub">SHORT FORM & DOCUMENTARY EDITS</span>
+        </div>
+
+        <div class="showcase-frames showcase-secondary" id="showcase-frames-secondary">
+
+          <!-- SECONDARY 01 — Reel (Dcr6RZHSWMy) -->
+          <article class="project-frame frame-portrait frame-secondary" data-project="2" data-index="3"
+                   data-reel-url="https://www.instagram.com/reel/Dcr6RZHSWMy/">
+            <div class="frame-inner">
+              <div class="frame-header">
+                <span class="frame-num">04 / 07</span>
+                <span class="frame-cat">EDUCATIONAL</span>
+              </div>
+              <div class="frame-media reel-media">
+                <div class="frame-thumbnail reel-thumb" style="background: linear-gradient(160deg, #080d05 0%, #001208 100%);"></div>
+                <div class="reel-embed-wrap" data-reel-src="https://www.instagram.com/reel/Dcr6RZHSWMy/embed/"></div>
+                <div class="frame-vignette"></div>
+                <div class="frame-grain"></div>
+              </div>
+              <div class="frame-footer">
+                <div class="frame-title-wrap">
+                  <h3 class="frame-title textured-heading">REEL 04</h3>
+                  <span class="frame-subtitle">Educational Content · Short Form</span>
+                </div>
+                <div class="frame-meta">
+                  <a class="frame-action frame-ig-link" href="https://www.instagram.com/reel/Dcr6RZHSWMy/" target="_blank" rel="noopener noreferrer" aria-label="Watch on Instagram">
+                    WATCH ON IG
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+              <div class="frame-play-indicator reel-play-indicator">
+                <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
+              </div>
+            </div>
+          </article>
+
+          <!-- SECONDARY 02 — Reel (DbhWuqzPPgB) -->
+          <article class="project-frame frame-portrait frame-secondary" data-project="3" data-index="4"
+                   data-reel-url="https://www.instagram.com/reel/DbhWuqzPPgB/">
+            <div class="frame-inner">
+              <div class="frame-header">
+                <span class="frame-num">05 / 07</span>
+                <span class="frame-cat">DOCUMENTARY</span>
+              </div>
+              <div class="frame-media reel-media">
+                <div class="frame-thumbnail reel-thumb" style="background: linear-gradient(160deg, #0a0308 0%, #100018 100%);"></div>
+                <div class="reel-embed-wrap" data-reel-src="https://www.instagram.com/reel/DbhWuqzPPgB/embed/"></div>
+                <div class="frame-vignette"></div>
+                <div class="frame-grain"></div>
+              </div>
+              <div class="frame-footer">
+                <div class="frame-title-wrap">
+                  <h3 class="frame-title textured-heading">REEL 05</h3>
+                  <span class="frame-subtitle">Documentary Style · Pacing</span>
+                </div>
+                <div class="frame-meta">
+                  <a class="frame-action frame-ig-link" href="https://www.instagram.com/reel/DbhWuqzPPgB/" target="_blank" rel="noopener noreferrer" aria-label="Watch on Instagram">
+                    WATCH ON IG
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+              <div class="frame-play-indicator reel-play-indicator">
+                <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
+              </div>
+            </div>
+          </article>
+
+          <!-- SECONDARY 03 — Reel (DbfrWVrv_Oh) -->
+          <article class="project-frame frame-portrait frame-secondary" data-project="4" data-index="5"
+                   data-reel-url="https://www.instagram.com/reel/DbfrWVrv_Oh/">
+            <div class="frame-inner">
+              <div class="frame-header">
+                <span class="frame-num">06 / 07</span>
+                <span class="frame-cat">SOCIAL VIDEO</span>
+              </div>
+              <div class="frame-media reel-media">
+                <div class="frame-thumbnail reel-thumb" style="background: linear-gradient(160deg, #050a10 0%, #000d1a 100%);"></div>
+                <div class="reel-embed-wrap" data-reel-src="https://www.instagram.com/reel/DbfrWVrv_Oh/embed/"></div>
+                <div class="frame-vignette"></div>
+                <div class="frame-grain"></div>
+              </div>
+              <div class="frame-footer">
+                <div class="frame-title-wrap">
+                  <h3 class="frame-title textured-heading">REEL 06</h3>
+                  <span class="frame-subtitle">Social Video · Rhythm</span>
+                </div>
+                <div class="frame-meta">
+                  <a class="frame-action frame-ig-link" href="https://www.instagram.com/reel/DbfrWVrv_Oh/" target="_blank" rel="noopener noreferrer" aria-label="Watch on Instagram">
+                    WATCH ON IG
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+              <div class="frame-play-indicator reel-play-indicator">
+                <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
+              </div>
+            </div>
+          </article>
+
+          <!-- SECONDARY 04 — Reel (DXWsnr8j8Go) -->
+          <article class="project-frame frame-portrait frame-secondary" data-project="6" data-index="6"
+                   data-reel-url="https://www.instagram.com/reel/DXWsnr8j8Go/">
+            <div class="frame-inner">
+              <div class="frame-header">
+                <span class="frame-num">07 / 07</span>
+                <span class="frame-cat">DOCUMENTARY</span>
+              </div>
+              <div class="frame-media reel-media">
+                <div class="frame-thumbnail reel-thumb" style="background: linear-gradient(160deg, #080a05 0%, #001510 100%);"></div>
+                <div class="reel-embed-wrap" data-reel-src="https://www.instagram.com/reel/DXWsnr8j8Go/embed/"></div>
+                <div class="frame-vignette"></div>
+                <div class="frame-grain"></div>
+              </div>
+              <div class="frame-footer">
+                <div class="frame-title-wrap">
+                  <h3 class="frame-title textured-heading">REEL 07</h3>
+                  <span class="frame-subtitle">Documentary Style · Visual Story</span>
+                </div>
+                <div class="frame-meta">
+                  <a class="frame-action frame-ig-link" href="https://www.instagram.com/reel/DXWsnr8j8Go/" target="_blank" rel="noopener noreferrer" aria-label="Watch on Instagram">
+                    WATCH ON IG
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+              <div class="frame-play-indicator reel-play-indicator">
+                <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Stage HUD / Control Info (7 Selected Work Reels) -->
+        <div class="showcase-hud">
+          <div class="hud-left">
+            <span class="hud-seq-title" id="hud-project-title">COLLEGE REEL 1</span>
+            <span class="hud-seq-cat" id="hud-project-cat">FEATURED</span>
+          </div>
+          <div class="hud-center">
+            <div class="showcase-progress">
+              <div class="progress-track">
+                <div class="progress-fill" id="showcase-progress-fill"></div>
+              </div>
+              <div class="progress-ticks">
+                <span class="tick active" data-tick="0">01</span>
+                <span class="tick" data-tick="1">02</span>
+                <span class="tick" data-tick="2">03</span>
+                <span class="tick" data-tick="3">04</span>
+                <span class="tick" data-tick="4">05</span>
+                <span class="tick" data-tick="5">06</span>
+                <span class="tick" data-tick="6">07</span>
+              </div>
+            </div>
+          </div>
+          <div class="hud-right">
+            <span class="hud-count-display" id="showcase-counter">01 / 07</span>
+          </div>
+        </div>
+
       </div>
-      <div class="cinema-shadow"></div>
     </div>
   </section>
 
   <!-- ============================== -->
-  <!-- PROJECTS — NOIR GRAPHIC NOVEL  -->
+  <!-- EXPERIMENTAL WORK              -->
   <!-- ============================== -->
-  <section id="projects" class="section projects" data-scroll-section>
+  <section id="experimental" class="section experimental" data-scroll-section>
     <div class="section-header">
       <span class="section-label reveal-text" data-reveal>02 //</span>
-      <h2 class="section-title textured-heading reveal-text" data-reveal>SELECTED WORK</h2>
+      <span class="mask-line"><h2 class="section-title textured-heading reveal-text" data-reveal data-anim-heading="mask">EXPERIMENTAL</h2></span>
     </div>
 
-    <!-- Paper texture background for comic pages -->
-    <div class="comic-page">
-      <div class="comic-page-texture" aria-hidden="true"></div>
+    <!-- Horizontal scroll background text -->
+    <div class="section-bg-text" aria-hidden="true">LAB</div>
 
-      <div class="comic-grid">
+    <div class="exp-intro reveal-up" data-reveal>
+      <p class="exp-desc">Motion design explorations, VFX compositing, and narrative trailer editing. Designed to push rhythm, texture, and visual impact beyond convention.</p>
+    </div>
 
-        <!-- Panel 1 — Wide cinematic (spans 2 columns) -->
-        <article class="comic-panel panel-wide reveal-up" data-reveal data-project="1">
-          <div class="panel-frame">
-            <div class="panel-media">
-              <div class="panel-thumbnail" style="background: linear-gradient(135deg, #1a0a0a 0%, #0d0408 40%, #0a0a1a 100%);"></div>
-              <!-- <video class="panel-video" src="assets/project1-preview.mp4" muted loop playsinline preload="none"></video> -->
-              <div class="panel-vignette"></div>
-            </div>
-            <div class="panel-info">
-              <h3 class="panel-title textured-heading">MIDNIGHT CHASE</h3>
-              <div class="panel-meta">
-                <span class="panel-category">SHORT FILM</span>
-                <span class="panel-duration">04:32</span>
-              </div>
-            </div>
-            <div class="panel-play-indicator">
-              <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
-            </div>
+    <div class="exp-grid" id="exp-grid">
+
+      <!-- EXP 01 — Vimeo: How I'd Survive Saw 2 — Spo0ky -->
+      <article class="exp-card reveal-up" data-reveal data-project="exp1">
+        <div class="exp-card-header">
+          <span class="exp-num">EXP // 01</span>
+          <span class="exp-cat">VISUAL STORYTELLING</span>
+        </div>
+        <div class="exp-video-wrap">
+          <div class="exp-iframe-container">
+            <iframe
+              src="https://player.vimeo.com/video/1238647638?background=1&autopause=0&dnt=1"
+              width="100%" height="100%"
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+              title="How I'd Survive Saw 2 — Spo0ky">
+            </iframe>
           </div>
-        </article>
-
-        <!-- Panel 2 — Tall vertical (spans 2 rows) -->
-        <article class="comic-panel panel-tall reveal-up" data-reveal data-project="2">
-          <div class="panel-frame">
-            <div class="panel-media">
-              <div class="panel-thumbnail" style="background: linear-gradient(180deg, #0a0a0f 0%, #1a0505 50%, #080412 100%);"></div>
-              <div class="panel-vignette"></div>
-            </div>
-            <div class="panel-info">
-              <h3 class="panel-title textured-heading">URBAN DECAY</h3>
-              <div class="panel-meta">
-                <span class="panel-category">MUSIC VIDEO</span>
-                <span class="panel-duration">03:18</span>
-              </div>
-            </div>
-            <div class="panel-play-indicator">
-              <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
-            </div>
+          <div class="frame-vignette"></div>
+          <div class="frame-grain"></div>
+          <a class="vimeo-fallback-link" href="https://vimeo.com/1238647638" target="_blank" rel="noopener noreferrer" aria-label="Watch How I'd Survive Saw 2 on Vimeo">Watch on Vimeo ↗</a>
+        </div>
+        <div class="exp-card-footer">
+          <div class="exp-title-row">
+            <h3 class="exp-title textured-heading">HOW I'D SURVIVE SAW 2</h3>
+            <a class="exp-vimeo-link" href="https://vimeo.com/1238647638" target="_blank" rel="noopener noreferrer" aria-label="Watch on Vimeo">
+              WATCH ON VIMEO
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
           </div>
-        </article>
-
-        <!-- Panel 3 — Small square -->
-        <article class="comic-panel panel-small reveal-up" data-reveal data-project="3">
-          <div class="panel-frame">
-            <div class="panel-media">
-              <div class="panel-thumbnail" style="background: linear-gradient(135deg, #0f0505 0%, #050510 100%);"></div>
-              <div class="panel-vignette"></div>
-            </div>
-            <div class="panel-info">
-              <h3 class="panel-title textured-heading">NEON NIGHTS</h3>
-              <div class="panel-meta">
-                <span class="panel-category">COMMERCIAL</span>
-                <span class="panel-duration">00:45</span>
-              </div>
-            </div>
-            <div class="panel-play-indicator">
-              <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
-            </div>
+          <span class="exp-sub">Spo0ky · Suspense Cutting · Atmospheric Sound</span>
+          <div class="exp-tags">
+            <span class="exp-tag">PREMIERE PRO</span>
+            <span class="exp-tag">PACING</span>
+            <span class="exp-tag">SOUND DESIGN</span>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <!-- Panel 4 — Full width cinematic (spans all columns, short) -->
-        <article class="comic-panel panel-cinematic reveal-up" data-reveal data-project="4">
-          <div class="panel-frame">
-            <div class="panel-media">
-              <div class="panel-thumbnail" style="background: linear-gradient(90deg, #0a0505 0%, #0f080a 30%, #0a0a15 70%, #060610 100%);"></div>
-              <div class="panel-vignette"></div>
-            </div>
-            <div class="panel-info">
-              <h3 class="panel-title textured-heading">FRAGMENTS</h3>
-              <div class="panel-meta">
-                <span class="panel-category">DOCUMENTARY</span>
-                <span class="panel-duration">12:07</span>
-              </div>
-            </div>
-            <div class="panel-play-indicator">
-              <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
-            </div>
+      <!-- EXP 02 — Vimeo: Experimental Spidey -->
+      <article class="exp-card reveal-up" data-reveal data-project="exp2">
+        <div class="exp-card-header">
+          <span class="exp-num">EXP // 02</span>
+          <span class="exp-cat">MOTION DESIGN · VFX</span>
+        </div>
+        <div class="exp-video-wrap">
+          <div class="exp-iframe-container">
+            <iframe
+              src="https://player.vimeo.com/video/1238647639?background=1&autopause=0&dnt=1"
+              width="100%" height="100%"
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+              title="Experimental Spidey">
+            </iframe>
           </div>
-        </article>
-
-        <!-- Panel 5 — Medium, slightly taller -->
-        <article class="comic-panel panel-medium-tall reveal-up" data-reveal data-project="5">
-          <div class="panel-frame">
-            <div class="panel-media">
-              <div class="panel-thumbnail" style="background: linear-gradient(160deg, #100808 0%, #08080f 100%);"></div>
-              <div class="panel-vignette"></div>
-            </div>
-            <div class="panel-info">
-              <h3 class="panel-title textured-heading">ECLIPSE</h3>
-              <div class="panel-meta">
-                <span class="panel-category">MOTION GRAPHICS</span>
-                <span class="panel-duration">01:20</span>
-              </div>
-            </div>
-            <div class="panel-play-indicator">
-              <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
-            </div>
+          <div class="frame-vignette"></div>
+          <div class="frame-grain"></div>
+          <a class="vimeo-fallback-link" href="https://vimeo.com/1238647639" target="_blank" rel="noopener noreferrer" aria-label="Watch Experimental Spidey on Vimeo">Watch on Vimeo ↗</a>
+        </div>
+        <div class="exp-card-footer">
+          <div class="exp-title-row">
+            <h3 class="exp-title textured-heading">EXPERIMENTAL SPIDEY</h3>
+            <a class="exp-vimeo-link" href="https://vimeo.com/1238647639" target="_blank" rel="noopener noreferrer" aria-label="Watch on Vimeo">
+              WATCH ON VIMEO
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
           </div>
-        </article>
-
-        <!-- Panel 6 — Medium landscape -->
-        <article class="comic-panel panel-medium reveal-up" data-reveal data-project="6">
-          <div class="panel-frame">
-            <div class="panel-media">
-              <div class="panel-thumbnail" style="background: linear-gradient(135deg, #0d0505 0%, #05050d 100%);"></div>
-              <div class="panel-vignette"></div>
-            </div>
-            <div class="panel-info">
-              <h3 class="panel-title textured-heading">VELOCITY</h3>
-              <div class="panel-meta">
-                <span class="panel-category">GAMING MONTAGE</span>
-                <span class="panel-duration">02:55</span>
-              </div>
-            </div>
-            <div class="panel-play-indicator">
-              <svg viewBox="0 0 48 48" fill="none"><polygon points="18,14 36,24 18,34" fill="#F5F5F5"/></svg>
-            </div>
+          <span class="exp-sub">Dynamic Compositing · Kinetic Motion · 3D Tracking</span>
+          <div class="exp-tags">
+            <span class="exp-tag">AFTER EFFECTS</span>
+            <span class="exp-tag">VFX</span>
+            <span class="exp-tag">SPEED RAMPING</span>
           </div>
-        </article>
+        </div>
+      </article>
 
-      </div>
+      <!-- EXP 03 — Vimeo: Batvel -->
+      <article class="exp-card reveal-up" data-reveal data-project="exp3">
+        <div class="exp-card-header">
+          <span class="exp-num">EXP // 03</span>
+          <span class="exp-cat">CONCEPT TRAILER</span>
+        </div>
+        <div class="exp-video-wrap">
+          <div class="exp-iframe-container">
+            <iframe
+              src="https://player.vimeo.com/video/1238647640?background=1&autopause=0&dnt=1"
+              width="100%" height="100%"
+              frameborder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+              title="Batvel">
+            </iframe>
+          </div>
+          <div class="frame-vignette"></div>
+          <div class="frame-grain"></div>
+          <a class="vimeo-fallback-link" href="https://vimeo.com/1238647640" target="_blank" rel="noopener noreferrer" aria-label="Watch Batvel on Vimeo">Watch on Vimeo ↗</a>
+        </div>
+        <div class="exp-card-footer">
+          <div class="exp-title-row">
+            <h3 class="exp-title textured-heading">BATVEL</h3>
+            <a class="exp-vimeo-link" href="https://vimeo.com/1238647640" target="_blank" rel="noopener noreferrer" aria-label="Watch on Vimeo">
+              WATCH ON VIMEO
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+          <span class="exp-sub">The Batman x Marvel · Hybrid Narrative · Dark Grade</span>
+          <div class="exp-tags">
+            <span class="exp-tag">DAVINCI RESOLVE</span>
+            <span class="exp-tag">COLOR GRADE</span>
+            <span class="exp-tag">TRAILER EDITING</span>
+          </div>
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -401,7 +673,7 @@
   <section id="services" class="section services" data-scroll-section>
     <div class="section-header">
       <span class="section-label reveal-text" data-reveal>03 //</span>
-      <h2 class="section-title textured-heading reveal-text" data-reveal>SERVICES</h2>
+      <span class="mask-line"><h2 class="section-title textured-heading reveal-text" data-reveal data-anim-heading="tracking">SERVICES</h2></span>
     </div>
 
     <div class="services-grid">
@@ -425,20 +697,6 @@
         <p class="service-desc">Title sequences, infographics, animated logos — design that moves.</p>
         <div class="service-line"></div>
       </div>
-
-      <div class="service-card reveal-up" data-reveal>
-        <span class="service-number">04</span>
-        <h3 class="service-title">COMMERCIAL</h3>
-        <p class="service-desc">Brand films, product launches, ad campaigns — cinematic selling.</p>
-        <div class="service-line"></div>
-      </div>
-
-      <div class="service-card reveal-up" data-reveal>
-        <span class="service-number">05</span>
-        <h3 class="service-title">GAMING</h3>
-        <p class="service-desc">Montages, intros, highlight reels — high-energy precision editing.</p>
-        <div class="service-line"></div>
-      </div>
     </div>
   </section>
 
@@ -448,17 +706,17 @@
   <section id="about" class="section about" data-scroll-section>
     <div class="section-header">
       <span class="section-label reveal-text" data-reveal>04 //</span>
-      <h2 class="section-title textured-heading reveal-text" data-reveal>ABOUT</h2>
+      <span class="mask-line"><h2 class="section-title textured-heading reveal-text" data-reveal data-anim-heading="scale">ABOUT</h2></span>
     </div>
 
     <div class="about-content">
-      <div class="about-text reveal-up" data-reveal>
+      <div class="about-text reveal-up" data-reveal data-scroll-speed="0.08">
         <p>I'm Thrushar Prem — a freelance video editor and motion designer based in India. I craft cinematic stories through meticulous post-production, color grading, and visual effects.</p>
         <p>Every frame is intentional. Every cut has purpose. I treat each project like a film — because to me, it is one.</p>
         <p>When I'm not editing, I'm studying cinematography, deconstructing title sequences, or obsessing over a single transition.</p>
       </div>
 
-      <div class="about-software reveal-up" data-reveal>
+      <div class="about-software reveal-up" data-reveal data-scroll-speed="0.12">
         <h3 class="about-tools-label">TOOLS OF THE TRADE</h3>
         <div class="software-grid">
           <div class="software-item">
@@ -485,12 +743,6 @@
             </div>
             <span>Photoshop</span>
           </div>
-          <div class="software-item">
-            <div class="software-icon">
-              <svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="#330000"/><text x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" fill="#FF9A00" font-size="12" font-weight="700" font-family="Inter">Ai</text></svg>
-            </div>
-            <span>Illustrator</span>
-          </div>
         </div>
       </div>
     </div>
@@ -503,26 +755,30 @@
     <div class="contact-inner">
       <div class="section-header">
         <span class="section-label reveal-text" data-reveal>05 //</span>
-        <h2 class="section-title contact-title textured-heading reveal-text" data-reveal>LET'S CREATE<br>SOMETHING<br>CINEMATIC</h2>
+        <h2 class="section-title contact-title textured-heading" data-reveal data-anim-heading="split">
+          <span class="mask-line"><span class="contact-line reveal-text" data-contact-line="1">LET'S CREATE</span></span>
+          <span class="mask-line"><span class="contact-line reveal-text" data-contact-line="2">SOMETHING</span></span>
+          <span class="mask-line"><span class="contact-line reveal-text" data-contact-line="3">CINEMATIC</span></span>
+        </h2>
       </div>
 
       <div class="contact-links reveal-up" data-reveal>
-        <a href="mailto:thrushar@example.com" class="contact-link magnetic-btn" data-magnetic>
+        <a href="mailto:thrushar@example.com" class="contact-link" aria-label="Send email">
           <span class="contact-link-label">EMAIL</span>
           <span class="contact-link-value">thrushar@example.com</span>
           <span class="contact-link-arrow">→</span>
         </a>
-        <a href="https://instagram.com/" target="_blank" rel="noopener" class="contact-link magnetic-btn" data-magnetic>
+        <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Visit Instagram">
           <span class="contact-link-label">INSTAGRAM</span>
           <span class="contact-link-value">@thrusharprem</span>
           <span class="contact-link-arrow">→</span>
         </a>
-        <a href="https://linkedin.com/" target="_blank" rel="noopener" class="contact-link magnetic-btn" data-magnetic>
+        <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Visit LinkedIn">
           <span class="contact-link-label">LINKEDIN</span>
           <span class="contact-link-value">Thrushar Prem</span>
           <span class="contact-link-arrow">→</span>
         </a>
-        <a href="https://wa.me/" target="_blank" rel="noopener" class="contact-link magnetic-btn" data-magnetic>
+        <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="Contact via WhatsApp">
           <span class="contact-link-label">WHATSAPP</span>
           <span class="contact-link-value">Send a message</span>
           <span class="contact-link-arrow">→</span>
@@ -539,6 +795,10 @@
       <span class="footer-text">© 2026 THRUSHAR PREM. ALL RIGHTS RESERVED.</span>
       <span class="footer-text">CRAFTED WITH OBSESSION.</span>
     </footer>
+    <div class="end-sequence" aria-hidden="true">
+      <span class="end-sequence-label">END_OF_SEQUENCE</span>
+      <span class="end-sequence-tc">03:24:00:00</span>
+    </div>
   </section>
 
   <!-- ============================== -->
@@ -586,6 +846,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>
